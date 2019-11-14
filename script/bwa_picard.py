@@ -4,12 +4,6 @@ import subprocess
 import time
 import configparser
 
-java="java"
-picard="/software/picard/picard.jar"
-bwa="/software/bwa/bwa-0.7.17/bwa"
-ref="/data/Database/hg19/ucsc.hg19.fasta"
-samtools="/software/samtools/samtools-1.9/bin/samtools"
-
 class Myconf(configparser.ConfigParser):
     def __init__(self, defaults=None):
         configparser.ConfigParser.__init__(self, defaults=defaults)
@@ -18,6 +12,7 @@ class Myconf(configparser.ConfigParser):
         return optionstr
 
 def run(pe1,pe2,outdir,prefix,configfile):
+    start=time.time()
     config = Myconf()
     config.read(configfile)
     java = config.get('software','java')
@@ -36,6 +31,8 @@ def run(pe1,pe2,outdir,prefix,configfile):
     subprocess.check_call(cmd, shell=True)
     cmd = "%s -Xmx100G -jar %s MarkDuplicates I=%s.sort.bam O=%s.dup.bam M=%s.marked_dup_metrics.txt && rm %s.sort.bam %s.sort.bam.bai && %s index %s.dup.bam" % (java, picard, out, out, out,out,out,samtools,out)
     subprocess.check_call(cmd, shell=True)
+    end=time.time()
+    print("Elapse time is %g seconds" % (end - start))
 
 if __name__=="__main__":
     parser=argparse.ArgumentParser("Map to Reference and Mark Duplicates")
