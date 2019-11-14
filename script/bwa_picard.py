@@ -42,4 +42,4 @@ if __name__=="__main__":
     parser.add_argument("-p", "--prefix", help="prefix of output", required=True)
     parser.add_argument("-c", "--config", help="config file", required=True)
     args=parser.parse_args()
-    run(args.pe1, args.pe2, args.outdir, args.prefix,args.configfile)
+    run(args.pe1, args.pe2, args.outdir, args.prefix,args.config)
