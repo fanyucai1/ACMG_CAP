@@ -1,6 +1,8 @@
 import os
-import sys
+import argparse
 import subprocess
+import time
+import configparser
 
 java="java"
 picard="/software/picard/picard.jar"
@@ -8,7 +10,21 @@ bwa="/software/bwa/bwa-0.7.17/bwa"
 ref="/data/Database/hg19/ucsc.hg19.fasta"
 samtools="/software/samtools/samtools-1.9/bin/samtools"
 
-def run(pe1,pe2,outdir,prefix):
+class Myconf(configparser.ConfigParser):
+    def __init__(self, defaults=None):
+        configparser.ConfigParser.__init__(self, defaults=defaults)
+
+    def optionxform(self, optionstr):
+        return optionstr
+
+def run(pe1,pe2,outdir,prefix,configfile):
+    config = Myconf()
+    config.read(configfile)
+    java = config.get('software','java')
+    picard = config.get('software','picard2.20.6')
+    bwa = config.get('software','bwa0.7.17')
+    ref =config.get('database', 'hg19_ref')
+    samtools = config.get('software','samtools1.9')
     if not os.path.exists(outdir):
         os.mkdir(outdir)
     os.chdir(outdir)
@@ -22,13 +38,11 @@ def run(pe1,pe2,outdir,prefix):
     subprocess.check_call(cmd, shell=True)
 
 if __name__=="__main__":
-    if len(sys.argv)!=6:
-        print("usage:python3 %s sample.R1.fastq sample.R2.fastq outdir prefix bedfile\n"%(sys.argv[0]))
-        print("#Email:fanyucai1@126.com")
-    else:
-        pe1=sys.argv[1]
-        pe2=sys.argv[2]
-        outdir=sys.argv[3]
-        prefix=sys.argv[4]
-        bed=sys.argv[5]
-        run(pe1, pe2, outdir, prefix,bed)
+    parser=argparse.ArgumentParser("Map to Reference and Mark Duplicates")
+    parser.add_argument("-p1","--pe1",help="5 reads",required=True)
+    parser.add_argument("-p2", "--pe2", help="3 reads", required=True)
+    parser.add_argument("-o","--outdir",help="output directory",default=os.getcwd())
+    parser.add_argument("-p", "--prefix", help="prefix of output", required=True)
+    parser.add_argument("-c", "--config", help="config file", required=True)
+    args=parser.parse_args()
+    run(args.pe1, args.pe2, args.outdir, args.prefix,args.configfile)
