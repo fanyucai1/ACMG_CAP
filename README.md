@@ -1,0 +1,1 @@
+[2013-ACMG clinical laboratory standards for next-generation sequencing.pdf](./2013-ACMG clinical laboratory standards for next-generation sequencing.pdf)
