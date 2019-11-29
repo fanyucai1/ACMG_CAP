@@ -45,4 +45,3 @@ FoundationOne 与MSK-IMPACT资料
 * :download:`2017-Analysis of 100,000 human cancer genomes reveals the landscape of tumor mutational burden.pdf`
 * :download:`2017-Mutational landscape of metastatic cancer revealed from prospective clinical sequencing of 10,000 patients.pdf`
 
-* :download:`haha <./paper/Manual.pdf>`
