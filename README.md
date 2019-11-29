@@ -1,1 +1,1 @@
-![haha](./Manual.pdf)
+![haha](./paper/Manual.pdf)
