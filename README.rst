@@ -44,3 +44,5 @@ FoundationOne 与MSK-IMPACT资料
 *  MSK-IMPACT数据分析Pipeline:`<https://impact-pipeline.readthedocs.io/en/latest/index.html#>`_
 * :download:`2017-Analysis of 100,000 human cancer genomes reveals the landscape of tumor mutational burden.pdf`
 * :download:`2017-Mutational landscape of metastatic cancer revealed from prospective clinical sequencing of 10,000 patients.pdf`
+
+* :download:`./paper/Manual.pdf`
